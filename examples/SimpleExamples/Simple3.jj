@@ -62,6 +62,7 @@ SKIP :
 //                 made up of a sequence of MORE's followed by a TOKEN
 //                 or SPECIAL_TOKEN.
 
+//Typically such token specifications are used for complex tokens such as identifiers and literals.  
 TOKEN :
 {
   <LBRACE: "{">
@@ -78,14 +79,18 @@ TOKEN :
 
 /** Root production. */
 void Input() :
+//declaration region to declare "count" 
 { int count; }
 {
   count=MatchedBraces() <EOF>
+  
   { System.out.println("The levels of nesting is " + count); }
 }
 
 /** Brace counting production. */
+// returns an int
 int MatchedBraces() :
+//declaration region to declare "nested_count"
 { int nested_count=0; }
 // The following block is what the non-terminal expands to (called an "expansion")
 // Other possible expansions:
@@ -96,5 +101,5 @@ int MatchedBraces() :
 {
         // [...] means an optional nested expansion and may also be written as (...)?
   <LBRACE> [ nested_count=MatchedBraces() ] <RBRACE>
-  { return ++nested_count; }
+  { return ++nested_count; } // action to return int
 }
