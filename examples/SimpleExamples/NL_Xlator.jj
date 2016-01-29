@@ -98,19 +98,19 @@ String Expression() :
 	}
   )*
 	{
-	  if (termimage.size() == 1) {
-	    return (String)termimage.elementAt(0);
-          } else {
-            s = "the sum of " + (String)termimage.elementAt(0);
-	    for (int i = 1; i < termimage.size()-1; i++) {
-	      s += ", " + (String)termimage.elementAt(i);
-	    }
-	    if (termimage.size() > 2) {
-	      s += ",";
-	    }
-	    s += " and " + (String)termimage.elementAt(termimage.size()-1);
-            return s;
-          }
+		if (termimage.size() == 1) {
+			return (String)termimage.elementAt(0);
+		} else {
+			s = "the sum of " + (String)termimage.elementAt(0);
+			for (int i = 1; i < termimage.size()-1; i++) {
+				s += ", " + (String)termimage.elementAt(i);
+			}
+			if (termimage.size() > 2) {
+			s += ",";
+			}
+			s += " and " + (String)termimage.elementAt(termimage.size()-1);
+			return s;
+		}
 	}
 }
 
@@ -131,19 +131,19 @@ String Term() :
 	}
   )*
 	{
-	  if (factorimage.size() == 1) {
-	    return (String)factorimage.elementAt(0);
-          } else {
-            s = "the product of " + (String)factorimage.elementAt(0);
-	    for (int i = 1; i < factorimage.size()-1; i++) {
-	      s += ", " + (String)factorimage.elementAt(i);
-	    }
-	    if (factorimage.size() > 2) {
-	      s += ",";
-	    }
-	    s += " and " + (String)factorimage.elementAt(factorimage.size()-1);
-            return s;
-          }
+		if (factorimage.size() == 1) {
+			return (String)factorimage.elementAt(0);
+		} else {
+			s = "the product of " + (String)factorimage.elementAt(0);
+			for (int i = 1; i < factorimage.size()-1; i++) {
+				s += ", " + (String)factorimage.elementAt(i);
+			}
+			if (factorimage.size() > 2) {
+				s += ",";
+			}
+			s += " and " + (String)factorimage.elementAt(factorimage.size()-1);
+			return s;
+		}
 	}
 }
 
