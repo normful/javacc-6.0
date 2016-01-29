@@ -42,6 +42,9 @@ public class IdList {
 
 PARSER_END(IdList)
 
+//This grammar accepts any sequence of identifiers with white space in between.
+
+//regular expressions in the SKIP specification are only ignored *between tokens* and not *within tokens*
 SKIP :
 {
   " "
@@ -50,10 +53,23 @@ SKIP :
 | "\r"
 }
 
+//In "xyz 123",
+//"123" is a separate token and hence does not match the grammar.
+
+//As a corollary, one must define as tokens anything within which
+//characters such as white space characters must not be present.
+
 TOKEN :
 {
   < Id: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"] )* >
 }
+//If spaces were OK within <Id>'s, then all one has to do is to replace
+//the definition of Id to:
+//
+//TOKEN :
+//{
+//  < Id: ["a"-"z","A"-"Z"] ( (" ")* ["a"-"z","A"-"Z","0"-"9"] )* >
+//}
 
 /** Top level production. */
 void Input() :
