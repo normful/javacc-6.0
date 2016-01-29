@@ -160,7 +160,7 @@ String Factor() :
 {
   t=<ID>
 	{
-	  return t.image;
+	  return t.image; // t.image is the String of Token t
 	}
 |
   t=<NUM>
