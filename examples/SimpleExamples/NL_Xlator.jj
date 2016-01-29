@@ -51,10 +51,14 @@ SKIP :
 
 TOKEN :
 {
+//  (Note that in the case of lexical tokens, (...)? and [...] are not equivalent)
   < ID: ["a"-"z","A"-"Z","_"] ( ["a"-"z","A"-"Z","_","0"-"9"] )* >
 |
   < NUM: ( ["0"-"9"] )+ >
 }
+//  ~["\n","\r"] matches any character except the new line characters
+
+
 
 /** Top level production. */
 void ExpressionList() :
@@ -146,6 +150,10 @@ String Term() :
 /** A Factor. */
 String Factor() :
 {
+//When a regular expression is used in an expansion, it takes a value of
+//type "Token".  This is generated into the generated parser directory
+//as "Token.java".  In the above example, we have defined a variable of
+//type "Token" and assigned the value of the regular expression to it.
 	Token t;
 	String s;
 }
