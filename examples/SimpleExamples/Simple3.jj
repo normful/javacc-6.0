@@ -42,19 +42,39 @@ public class Simple3 {
 
 PARSER_END(Simple3)
 
+// a "lexical specification region"
+// allow white space characters to be interspersed among the braces
 SKIP :
 {
-  " "
-| "\t"
-| "\n"
-| "\r"
+  " "    // regexp
+| "\t"   // regexp
+| "\n"   // regexp
+| "\r"   // regexp
 }
+//In addition to SKIP, JavaCC has three other lexical specification regions:
+//
+//. TOKEN:         This is used to specify lexical tokens (see next example)
+//. SPECIAL_TOKEN: This is used to specify lexical tokens that are to be
+//                 ignored during parsing.  In this sense, SPECIAL_TOKEN is
+//                 the same as SKIP.  However, these tokens can be recovered
+//                 within parser actions to be handled appropriately.
+//. MORE:          This specifies a partial token.  A complete token is
+//                 made up of a sequence of MORE's followed by a TOKEN
+//                 or SPECIAL_TOKEN.
 
 TOKEN :
 {
   <LBRACE: "{">
 | <RBRACE: "}">
 }
+
+// non-terminal
+// LHS          : RHS
+// void Input() : rest
+
+//When the non-terminal is used on the left-hand side of a production, it is
+//considered to be declared and its syntax follows the Java syntax.  
+//On the right-hand side its use is similar to a method call in Java.
 
 /** Root production. */
 void Input() :
@@ -67,7 +87,14 @@ void Input() :
 /** Brace counting production. */
 int MatchedBraces() :
 { int nested_count=0; }
+// The following block is what the non-terminal expands to (called an "expansion")
+// Other possible expansions:
+//   e1 | e2 | e3 | ... : A choice of e1, e2, e3, etc.
+//   ( e )+             : One or more occurrences of e
+//   ( e )*             : Zero or more occurrences of e
+//   (( e1 | e2 )* [ e3 ] ) | e4
 {
+        // [...] means an optional nested expansion and may also be written as (...)?
   <LBRACE> [ nested_count=MatchedBraces() ] <RBRACE>
   { return ++nested_count; }
 }
